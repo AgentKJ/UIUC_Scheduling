@@ -1,11 +1,13 @@
 package com.example.uiucscheduling;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -62,6 +64,9 @@ public class AddCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_course);
 
+        Toolbar toolBar = findViewById(R.id.newCourseToolbar);
+        setSupportActionBar(toolBar);
+
         txvCourseName = findViewById(R.id.editCourseName);
         txvCourseNum = findViewById(R.id.editCourseNum);
         txvLocation = findViewById(R.id.editLocation);
@@ -77,6 +82,7 @@ public class AddCourseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isValid()) {
+
                     courseName = txvCourseName.getText().toString();
                     courseNum = txvCourseNum.getText().toString();
                     credit = Integer.parseInt(txvCredit.getText().toString());

@@ -14,6 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class CourseActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,17 +54,13 @@ public class CourseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.add) {
-            Toast.makeText(getApplicationContext(), "You Clicked Add", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.delete)
-            Toast.makeText(getApplicationContext(), "You Clicked Delete", Toast.LENGTH_SHORT).show();
-        /*switch (item.getItemId()) {
-            case :
+        switch (item.getItemId()) {
+            case R.id.add:
+                startActivity(new Intent(this, AddCourseActivity.class));
+            case R.id.remove:
+                Toast.makeText(getApplicationContext(), "You Clicked Remove", Toast.LENGTH_SHORT).show();
 
-            case R.id.delete:
-
-        }*/
+        }
         return true;
     }
 }
