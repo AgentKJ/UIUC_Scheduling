@@ -19,20 +19,18 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddCourseActivity extends AppCompatActivity {
 
-    private String courseName;
     private String courseCtg;
-    private String courseNum;
-    private String sectionNum;
-    private String location;
-    private String profName;
-    private int credit;
     private String startingDate;
     private String endingDate;
     private String startingTime;
     private String endingTime;
+
+    Course course;
 
     Button btnSetStartDate;
     Button btnSetEndDate;
@@ -50,13 +48,10 @@ public class AddCourseActivity extends AppCompatActivity {
     private TextView txvProf;
     private TextView txvSection;
 
-
-
     private Calendar calendar;
     private DatePickerDialog datePickerDialog;
     private TimePickerDialog timePickerDialog;
 
-    TextView result;
     Button addCourse;
 
     @Override
@@ -74,7 +69,6 @@ public class AddCourseActivity extends AppCompatActivity {
         txvProf = findViewById(R.id.editProf);
         txvSection = findViewById(R.id.editSection);
 
-        result = findViewById(R.id.txvResult);
         addCourse = findViewById(R.id.btnAdd);
 
         /* Set course name and number. */
@@ -82,17 +76,26 @@ public class AddCourseActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isValid()) {
+                    course = new Course();
+                    course.setCourseName(txvCourseName.getText().toString());
+                    course.setCourseNum(txvCourseNum.getText().toString());
+                    course.setCourseCtg(courseCtg);
+                    course.setCredit(Integer.parseInt(txvCredit.getText().toString()));
+                    course.setLocation(txvLocation.getText().toString());
+                    course.setProfName(txvProf.getText().toString());
+                    course.setSectionNum(txvSection.getText().toString());
+                    course.setStartingTime(startingTime);
+                    course.setEndingTime(endingTime);
+                    course.setStartingDate(startingDate);
+                    course.setEndingDate(endingDate);
 
-                    courseName = txvCourseName.getText().toString();
-                    courseNum = txvCourseNum.getText().toString();
-                    credit = Integer.parseInt(txvCredit.getText().toString());
-                    location = txvLocation.getText().toString();
-                    profName = txvProf.getText().toString();
-                    sectionNum = txvSection.getText().toString();
-                    result.setText(courseCtg + " " + courseNum + " " + courseName + "\n"
-                            + "From " + startingDate + " to " + endingDate + "\n"
-                            + "From " + startingTime + " to " + endingTime + "\n"
-                            + "At " + location + " with " + profName);
+                    Map<String, String> item = new HashMap<>();
+                    item.put("level", course.getCourseCtg() + " " + course.getCourseNum());
+                    item.put("name", course.getCourseName());
+                    CourseActivity.courseList.add(item);
+                    CourseActivity.adapter.notifyDataSetChanged();
+
+                    finish();
                 }
             }
         });
@@ -114,8 +117,6 @@ public class AddCourseActivity extends AppCompatActivity {
                 Toast.makeText(AddCourseActivity.this, "Select the corresponding subject", Toast.LENGTH_LONG).show();
             }
         });
-
-
 
 
 

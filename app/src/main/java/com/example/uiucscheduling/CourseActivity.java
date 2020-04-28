@@ -8,22 +8,54 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class CourseActivity extends AppCompatActivity {
 
+    public static List<Map<String, String>> courseList = new ArrayList<>();
+    public static SimpleAdapter adapter;
 
+    public String[][] data = {
+            {"CS 125","Intro to Computer Science"},
+            {"Math 347","Fundamental Mathematics"},
+            {"Math 241","Calculus III"},
+            {"ECON 302","Inter Microeconomics Theory"}
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course);
 
+
+        // Passing the list and setting up the list view
+        adapter = new SimpleAdapter(this, courseList, R.layout.style_listview,
+                new String[]{"level", "name"}, new int[]{R.id.tvLocal, R.id.tvName}
+        );
+        ListView listview = findViewById(R.id.courseListView);
+        listview.setAdapter(adapter);
+        listview.setOnItemClickListener(onClickListView);
+
+
+        // Creating the upper toolbar
         Toolbar toolBar = findViewById(R.id.courseToolbar);
         setSupportActionBar(toolBar);
 
+
+        // Creating the bottom navigation view
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setSelectedItemId(R.id.courses);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -45,6 +77,15 @@ public class CourseActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    private AdapterView.OnItemClickListener onClickListView = new AdapterView.OnItemClickListener(){
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Toast.makeText(CourseActivity.this,"點選第 " + (position + 1) + " 個 \n內容："+ data[position][1], Toast.LENGTH_SHORT).show();
+        }
+
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
