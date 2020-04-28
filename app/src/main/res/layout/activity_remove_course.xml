@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CourseActivity">
+    tools:context=".RemoveCourseActivity">
 
     <ListView
         android:layout_width="match_parent"
@@ -13,23 +13,13 @@
         android:id="@+id/courseListView"
         android:layout_below="@+id/courseToolbar"
         android:layout_above="@+id/bottom_navigation"/>
-    
+
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/courseToolbar"
         android:background="@color/colorBlue"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="UIUC Scheduling"/>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/bottom_navigation"
-        app:itemBackground="@color/colorBlue"
-        app:itemTextColor="@drawable/selector"
-        app:itemIconTint="@drawable/selector"
-        app:menu="@menu/menu_navigation"
-        android:layout_alignParentBottom="true"/>
+        app:title="Select to remove"/>
 
 </RelativeLayout>

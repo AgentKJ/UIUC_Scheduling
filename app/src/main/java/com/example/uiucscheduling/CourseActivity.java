@@ -10,8 +10,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
@@ -19,12 +17,12 @@ import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class CourseActivity extends AppCompatActivity {
 
+    public static List<Course> courses = new ArrayList<>();
     public static List<Map<String, String>> courseList = new ArrayList<>();
     public static SimpleAdapter adapter;
 
@@ -43,7 +41,7 @@ public class CourseActivity extends AppCompatActivity {
 
         // Passing the list and setting up the list view
         adapter = new SimpleAdapter(this, courseList, R.layout.style_listview,
-                new String[]{"level", "name"}, new int[]{R.id.tvLocal, R.id.tvName}
+                new String[]{"number", "name"}, new int[]{R.id.tvLocal, R.id.tvName}
         );
         ListView listview = findViewById(R.id.courseListView);
         listview.setAdapter(adapter);
@@ -82,7 +80,12 @@ public class CourseActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener onClickListView = new AdapterView.OnItemClickListener(){
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(CourseActivity.this,"點選第 " + (position + 1) + " 個 \n內容："+ data[position][1], Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getBaseContext(), CourseInfoActivity.class);
+            Map<String, String> temp = courseList.get(position);
+            String courseNum = temp.get("number");
+            intent.putExtra("COURSE_NUM", courseNum);
+            startActivity(intent);
+            // Toast.makeText(CourseActivity.this,"點選第 " + (position + 1) + " 個 \n內容："+ data[position][1], Toast.LENGTH_SHORT).show();
         }
 
     };
@@ -95,12 +98,11 @@ public class CourseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.add:
-                startActivity(new Intent(this, AddCourseActivity.class));
-            case R.id.remove:
-                Toast.makeText(getApplicationContext(), "You Clicked Remove", Toast.LENGTH_SHORT).show();
-
+        int id = item.getItemId();
+        if (id == R.id.add) {
+            startActivity(new Intent(this, AddCourseActivity.class));
+        } else if (id == R.id.remove) {
+            startActivity(new Intent(this, RemoveCourseActivity.class));
         }
         return true;
     }

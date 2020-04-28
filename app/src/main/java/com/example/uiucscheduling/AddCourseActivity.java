@@ -89,8 +89,9 @@ public class AddCourseActivity extends AppCompatActivity {
                     course.setStartingDate(startingDate);
                     course.setEndingDate(endingDate);
 
+                    CourseActivity.courses.add(course);
                     Map<String, String> item = new HashMap<>();
-                    item.put("level", course.getCourseCtg() + " " + course.getCourseNum());
+                    item.put("number", course.getCourseCtg() + " " + course.getCourseNum());
                     item.put("name", course.getCourseName());
                     CourseActivity.courseList.add(item);
                     CourseActivity.adapter.notifyDataSetChanged();
