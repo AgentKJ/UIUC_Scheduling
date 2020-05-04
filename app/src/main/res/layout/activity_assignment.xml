@@ -10,9 +10,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="assignment"
-        android:textSize="50sp"
-        android:textStyle="bold"
+        android:text="Assignment"
+        android:textSize="30sp"
         android:layout_centerInParent="true"/>
 
     <androidx.appcompat.widget.Toolbar

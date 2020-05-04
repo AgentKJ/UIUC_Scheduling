@@ -14,7 +14,6 @@ public class CourseInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course_info);
         String courseNum = getIntent().getStringExtra("COURSE_NUM");
         TextView textView = findViewById(R.id.textView);
-        String courseName = "";
         for (Course c : CourseActivity.courses) {
             if (courseNum.equals(c.getCourseCtg() + " " + c.getCourseNum())) {
                 course = c;

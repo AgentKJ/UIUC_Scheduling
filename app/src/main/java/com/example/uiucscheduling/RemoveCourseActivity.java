@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import java.util.Map;
 
+import static com.example.uiucscheduling.CourseActivity.courseList;
+
 public class RemoveCourseActivity extends AppCompatActivity {
 
     @Override
@@ -34,17 +36,16 @@ public class RemoveCourseActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener onClickListView = new AdapterView.OnItemClickListener(){
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Map<String, String> temp = CourseActivity.courseList.get(position);
+            Map<String, String> temp = courseList.get(position);
             String name = temp.get("name");
             for (Course c : CourseActivity.courses) {
                 if (c.getCourseName().equals(name)) {
                     CourseActivity.courses.remove(c);
                 }
             }
-            CourseActivity.courseList.get(position).clear();
+            courseList.get(position);
             CourseActivity.adapter.notifyDataSetChanged();
             finish();
         }
-
     };
 }

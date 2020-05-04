@@ -6,16 +6,17 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -102,7 +103,10 @@ public class CourseActivity extends AppCompatActivity {
         if (id == R.id.add) {
             startActivity(new Intent(this, AddCourseActivity.class));
         } else if (id == R.id.remove) {
-            startActivity(new Intent(this, RemoveCourseActivity.class));
+            Intent intent = new Intent(getBaseContext(), RemoveCourseActivity.class);
+            intent.putExtra("courses", (Parcelable) courses);
+            intent.putExtra("courseList", (Parcelable) courseList);
+            startActivity(intent);
         }
         return true;
     }

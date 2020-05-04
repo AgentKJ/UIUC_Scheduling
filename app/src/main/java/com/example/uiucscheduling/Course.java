@@ -1,6 +1,9 @@
 package com.example.uiucscheduling;
 
-public class Course {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Course implements Parcelable {
     private String courseName;
     private String courseCtg;
     private String courseNum;
@@ -12,6 +15,36 @@ public class Course {
     private String endingDate;
     private String startingTime;
     private String endingTime;
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(courseName);
+        parcel.writeString(courseCtg);
+        parcel.writeString(courseNum);
+        parcel.writeString(sectionNum);
+        parcel.writeString(location);
+        parcel.writeString(profName);
+        parcel.writeString(startingDate);
+        parcel.writeString(endingDate);
+        parcel.writeString(startingTime);
+        parcel.writeString(endingTime);
+        parcel.writeInt(credit);
+    }
+
+    public static final Parcelable.Creator<Course> CREATOR = new Parcelable.Creator<Course>() {
+        public Course createFromParcel(Parcel in) {
+            return new Course();
+        }
+        public Course[] newArray(int size)
+        {
+            return new Course[size];
+        }
+    };
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
